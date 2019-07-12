@@ -1,10 +1,9 @@
-﻿빌드 시작: 2019-07-11 오후 8:59:33
+﻿빌드 시작: 2019-07-12 오후 2:49:06
      1>2 노드의 "c:\Users\seoyechan\documents\visual studio 2013\Projects\17143낚시왕\17143낚시왕\17143낚시왕.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\seoyechan\documents\visual studio 2013\projects\17143낚시왕\17143낚시왕\main.cpp(16): warning C4091: 'typedef ' : 변수를 선언하지 않으면 'inf' 왼쪽은 무시됩니다.
-     1>c:\users\seoyechan\documents\visual studio 2013\projects\17143낚시왕\17143낚시왕\main.cpp(77): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\seoyechan\documents\visual studio 2013\projects\17143낚시왕\17143낚시왕\main.cpp(15): warning C4091: 'typedef ' : 변수를 선언하지 않으면 'inf' 왼쪽은 무시됩니다.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\seoyechan\documents\visual studio 2013\Projects\17143낚시왕\Debug\17143낚시왕.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"c:\users\seoyechan\documents\visual studio 2013\Projects\17143낚시왕\Debug\17143낚시왕.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\seoyechan\documents\visual studio 2013\Projects\17143낚시왕\Debug\17143낚시왕.lib" /MACHINE:X86 Debug\main.obj
          17143낚시왕.vcxproj -> c:\users\seoyechan\documents\visual studio 2013\Projects\17143낚시왕\Debug\17143낚시왕.exe
@@ -12,4 +11,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:00.53
+경과 시간: 00:00:01.15

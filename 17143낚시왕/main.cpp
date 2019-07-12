@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <vector>
-
-using namespace std;
-
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
+
+using namespace std;
 
 int nfiled[101][101];
 int total_shark;
@@ -12,13 +11,13 @@ int r, c;
 int nRet;
 
 typedef struct inf{
-	int x, y, s, d, z; // x위치, y위치, 속도, 이동방향 1 : 위 2 : 아래 3 : 오른쪽 4 : 왼쪽, 크기
+	int x, y, s, d, z, check /*상어의 생사 여부*/, num; // x위치, y위치, 속도, 이동방향 1 : 위 2 : 아래 3 : 오른쪽 4 : 왼쪽, 크기
 };
 
 int dirx[] = { 0, 0, 0, 1, -1 };
 int diry[] = { 0, -1, 1, 0, 0 };
 
-vector <inf> shark_inf;
+inf shark_arr[10001];
 
 int fnchange_dir(int cur_dir)
 {
@@ -66,43 +65,52 @@ int fnSol()
 	{
 		for (int j = 0; j < c; j++){
 			if (nfiled[j][t]){
-				nRet += shark_inf[nfiled[j][t] - 1].z;
+				nRet += shark_arr[nfiled[j][t] - 1].z;
+				shark_arr[nfiled[j][t] - 1].check = 0;
 				nfiled[j][t] = 0; // shark die
 				break;
 			}
 		}
 
-		int nfiled_copy[101][101] = { 0, };
-
-		for (int i = 0; i < shark_inf.size(); i++){
-			if (nfiled[shark_inf[i].y][shark_inf[i].x])
+		for (int i = 0; i < total_shark; i++){
+			if (shark_arr[i].check)
 			{
-				if (shark_inf[i].s)
+				if (shark_arr[i].s)
 				{
-					nfiled_copy[shark_inf[i].y][shark_inf[i].x] = 0;
-					fnshark_move(&shark_inf[i].x, &shark_inf[i].y, &shark_inf[i].d, shark_inf[i].s);
+					nfiled[shark_arr[i].y][shark_arr[i].x] = 0;
+					fnshark_move(&shark_arr[i].x, &shark_arr[i].y, &shark_arr[i].d, shark_arr[i].s);
 				}
 				else
 				{
-					nfiled_copy[shark_inf[i].y][shark_inf[i].x] = i + 1;
+					nfiled[shark_arr[i].y][shark_arr[i].x] = 0;
 					continue;
-				}
-				if (nfiled_copy[shark_inf[i].y][shark_inf[i].x])
-				{
-					int move_param = nfiled_copy[shark_inf[i].y][shark_inf[i].x] - 1;
-					if (shark_inf[i].z > shark_inf[move_param].z)
-						nfiled_copy[shark_inf[i].y][shark_inf[i].x] = i + 1;
-				}
-				else
-				{
-					nfiled_copy[shark_inf[i].y][shark_inf[i].x] = i + 1;
 				}
 			}
 		}
 
-		for (int i = 0; i < c; i++)
-			for (int j = 0; j < r; j++)
-				nfiled[i][j] = nfiled_copy[i][j];
+		for (int i = 0; i < total_shark; i++){
+			if (shark_arr[i].check)
+			{
+				if (nfiled[shark_arr[i].y][shark_arr[i].x]) // shark exist
+				{
+					if (shark_arr[nfiled[shark_arr[i].y][shark_arr[i].x] - 1].z < shark_arr[i].z) // eat shark
+					{
+						shark_arr[nfiled[shark_arr[i].y][shark_arr[i].x] - 1].check = 0;
+						nfiled[shark_arr[i].y][shark_arr[i].x] = shark_arr[i].num;
+					}
+					else
+					{
+						shark_arr[i].check = 0;
+					}
+				}
+				else // shark not exist
+				{
+					nfiled[shark_arr[i].y][shark_arr[i].x] = shark_arr[i].num;
+				}
+			}
+		}
+
+
 	}
 
 	return 0;
@@ -118,19 +126,22 @@ int main()
 	scanf("%d", &t);
 	for (test_case = 1; test_case <= t; ++test_case)
 	{
+
 		scanf("%d %d %d", &c, &r, &total_shark);
-		
+
 		for (int i = 0; i < c; i++)
 			for (int j = 0; j < r; j++)
 				nfiled[i][j] = 0;
-			
-		shark_inf.clear();
+
 		for (int i = 0; i < total_shark; i++){
 			inf temp;
 			scanf("%d %d %d %d %d", &temp.y, &temp.x, &temp.s, &temp.d, &temp.z);
 			temp.x -= 1;
 			temp.y -= 1;
-			shark_inf.push_back(temp);
+			temp.check = 1;
+			temp.num = i + 1;
+			shark_arr[i] = temp;
+			
 			nfiled[temp.y][temp.x] = i + 1;
 		}
 
@@ -138,7 +149,7 @@ int main()
 		fnSol();
 
 		printf("%d\n", nRet);
-
 	}
+
 	return 0;
 }
